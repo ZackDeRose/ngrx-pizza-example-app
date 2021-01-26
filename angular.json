@@ -1,0 +1,143 @@
+{
+  "version": 1,
+  "projects": {
+    "pizza": {
+      "projectType": "application",
+      "root": "apps/pizza",
+      "sourceRoot": "apps/pizza/src",
+      "prefix": "ngrx-pizza-example-app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/pizza",
+            "index": "apps/pizza/src/index.html",
+            "main": "apps/pizza/src/main.ts",
+            "polyfills": "apps/pizza/src/polyfills.ts",
+            "tsConfig": "apps/pizza/tsconfig.app.json",
+            "aot": true,
+            "assets": ["apps/pizza/src/favicon.ico", "apps/pizza/src/assets"],
+            "styles": ["apps/pizza/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/pizza/src/environments/environment.ts",
+                  "with": "apps/pizza/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "pizza:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "pizza:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "pizza:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/pizza/src/**/*.ts",
+              "apps/pizza/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/pizza"],
+          "options": {
+            "jestConfig": "apps/pizza/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "pizza-e2e": {
+      "root": "apps/pizza-e2e",
+      "sourceRoot": "apps/pizza-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/pizza-e2e/cypress.json",
+            "tsConfig": "apps/pizza-e2e/tsconfig.e2e.json",
+            "devServerTarget": "pizza:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "pizza:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/pizza-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/angular": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "defaultProject": "pizza"
+}
