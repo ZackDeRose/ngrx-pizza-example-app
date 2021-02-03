@@ -1,7 +1,15 @@
-<img src="assets/cheese_pizza.jpeg" />
+<img [src]="imgUrl$ | async" />
 
-<button>Add Pepperonni</button>
+<ng-container *ngrxLet="hasPepperoni$ as hasPepperoni">
+  <button (click)="pepperoniClick(hasPepperoni)">
+    {{ hasPepperoni ? 'Remove' : 'Add' }} Pepperonni
+  </button>
+</ng-container>
 
-<button>Add Sausage</button>
+<ng-container *ngrxLet="hasSausage$ as hasSausage">
+  <button (click)="sausageClick(hasSausage)">
+    {{ hasSausage ? 'Remove' : 'Add' }} Sausage
+  </button>
+</ng-container>
 
-<h1>Price: $----</h1>
+<h1>Price: ${{ price$ | async }}</h1>
