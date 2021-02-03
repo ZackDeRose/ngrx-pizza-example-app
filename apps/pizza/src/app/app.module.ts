@@ -3,10 +3,11 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { PizzaComponent } from './pizza/pizza.component';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 @NgModule({
   declarations: [AppComponent, PizzaComponent],
-  imports: [BrowserModule],
+  imports: [BrowserModule, ReactiveComponentModule],
   providers: [],
   bootstrap: [AppComponent],
 })
