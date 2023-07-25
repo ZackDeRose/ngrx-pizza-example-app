@@ -1,0 +1,29 @@
+{
+  "name": "pizza-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/pizza-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/pizza-e2e/cypress.json",
+        "tsConfig": "apps/pizza-e2e/tsconfig.e2e.json",
+        "devServerTarget": "pizza:serve"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "pizza:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/pizza-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["pizza"]
+}

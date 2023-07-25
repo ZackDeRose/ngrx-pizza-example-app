@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { selectPizzaPrice } from './pizza.store';
 
 @Component({
   selector: 'ngrx-pizza-example-app-root',
@@ -6,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'pizza';
+  price$ = this._store.select(selectPizzaPrice);
+
+  constructor(private _store: Store) {}
 }
