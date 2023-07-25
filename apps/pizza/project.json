@@ -1,0 +1,87 @@
+{
+  "name": "pizza",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/pizza/src",
+  "prefix": "ngrx-pizza-example-app",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "options": {
+        "outputPath": "dist/apps/pizza",
+        "index": "apps/pizza/src/index.html",
+        "main": "apps/pizza/src/main.ts",
+        "polyfills": "apps/pizza/src/polyfills.ts",
+        "tsConfig": "apps/pizza/tsconfig.app.json",
+        "aot": true,
+        "assets": ["apps/pizza/src/favicon.ico", "apps/pizza/src/assets"],
+        "styles": ["apps/pizza/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/pizza/src/environments/environment.ts",
+              "with": "apps/pizza/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "5mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb",
+              "maximumError": "10kb"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "browserTarget": "pizza:build"
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "pizza:build:production"
+        }
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "pizza:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/pizza/src/**/*.ts",
+          "apps/pizza/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/pizza"],
+      "options": {
+        "jestConfig": "apps/pizza/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
